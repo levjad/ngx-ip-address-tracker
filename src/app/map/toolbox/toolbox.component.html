@@ -1,0 +1,41 @@
+<div id="toolbox">
+  <h3>IP Address Tracker</h3>
+  <mat-form-field class="search-input">
+    <input matInput placeholder="Search for any IP address" (change)="updateSearch($event)">
+    <button mat-icon-button matSuffix color="primary">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-card class="info-box">
+    <mat-card-content>
+      @if (ipInfo && ipInfo().status === 'success') {
+        <section>
+          <span>{{ 'ip address' | uppercase }}</span>
+          <span>{{ ipInfo().query }}</span>
+        </section>
+        <mat-divider vertical="true"></mat-divider>
+        <section>
+          <span>{{ 'location' | uppercase }}</span>
+          <span>
+            {{ ipInfo().city }},
+            {{ ipInfo().region }}
+          </span>
+        </section>
+        <mat-divider vertical="true"></mat-divider>
+        <section>
+          <span>{{ 'timezone' | uppercase }}</span>
+          <span>{{ ipInfo().timezone }}</span>
+        </section>
+        <mat-divider vertical="true"></mat-divider>
+        <section>
+          <span>{{ 'isp' | uppercase }}</span>
+          <span>{{ ipInfo().isp }}</span>
+        </section>
+      }
+      @else {
+        No Data
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

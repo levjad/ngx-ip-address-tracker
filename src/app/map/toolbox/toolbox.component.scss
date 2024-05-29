@@ -1,0 +1,51 @@
+@import "../../../styles.scss";
+
+#toolbox {
+  background-color: deepskyblue;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  color: whitesmoke;
+  padding-top: 28px;
+
+  .search-input {
+    width: 50%;
+  }
+
+  .info-box {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    min-height: 128px;
+    z-index: 2;
+    color: darkgray;
+
+    mat-card-content {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+
+      section {
+        display: flex;
+        flex-flow: column;
+
+        @media only screen and (max-width: 1023px) {
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        span:nth-child(1) {
+          font-size: small;
+          color: darkgray;
+        }
+
+        span:nth-child(2) {
+          color: dimgray;
+          font-size: x-large;
+        }
+      }
+    }
+  }
+
+}

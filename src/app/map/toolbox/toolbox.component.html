@@ -1,7 +1,12 @@
 <div id="toolbox">
   <h3>IP Address Tracker</h3>
   <mat-form-field class="search-input">
-    <input matInput placeholder="Search for any IP address" (change)="updateSearch($event)">
+    <input #search matInput placeholder="Search for any IP address" (change)="updateSearch($event)">
+    @if (search.value) {
+      <button mat-icon-button matSuffix color="primary" (click)="updateSearch();search.value = ''">
+        <mat-icon>delete</mat-icon>
+      </button>
+    }
     <button mat-icon-button matSuffix color="primary">
       <mat-icon>search</mat-icon>
     </button>

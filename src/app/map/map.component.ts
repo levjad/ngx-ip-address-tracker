@@ -16,7 +16,8 @@ import { ToolboxComponent } from "./toolbox/toolbox.component";
 })
 export class MapComponent implements AfterViewInit {
   map: any;
-  ipInfo: Signal<any> | undefined;
+  layerGroup: any;
+  ipInfo: Signal<IpInfo> | undefined;
 
   constructor(private readonly http: HttpClient) {
     this.searchIp();
@@ -38,6 +39,8 @@ export class MapComponent implements AfterViewInit {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
 
+    this.layerGroup = L.layerGroup().addTo(this.map);
+
     tiles.addTo(this.map);
   }
 
@@ -51,12 +54,15 @@ export class MapComponent implements AfterViewInit {
     this.http.get<IpInfo>(`http://ip-api.com/json/${ip ? ip : ''}`).subscribe(res => {
       this.ipInfo = signal(Object.assign({}, res));
 
+      this.layerGroup.clearLayers();
+
       if (!res.lat || !res.lon) {
         this.map.setView([ 50.217201466867394, 11.065649218205582 ], 4);
         return;
       }
+
       const marker = L.circleMarker([res.lat!, res.lon!]);
-      marker.addTo(this.map);
+      marker.addTo(this.layerGroup);
 
       this.centerLeafletMapOnMarker(this.map, marker);
     });

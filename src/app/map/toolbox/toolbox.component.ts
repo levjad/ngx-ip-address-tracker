@@ -32,7 +32,7 @@ export class ToolboxComponent {
 
   constructor() {}
 
-  updateSearch($event: any) {
-    this.ipSearch.emit($event.target.value);
+  updateSearch($event?: any) {
+    this.ipSearch.emit($event ? $event.target.value : '');
   }
 }

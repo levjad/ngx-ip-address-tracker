@@ -51,17 +51,17 @@ export class MapComponent implements AfterViewInit {
   }
 
   searchIp(ip?: string) {
-    this.http.get<IpInfo>(`http://ip-api.com/json/${ip ? ip : ''}`).subscribe(res => {
+    this.http.get<IpInfo>(`https://ipapi.co${ip ? '/'+ip : ''}/json/`).subscribe(res => {
       this.ipInfo = signal(Object.assign({}, res));
 
       this.layerGroup.clearLayers();
 
-      if (!res.lat || !res.lon) {
+      if (!res.latitude || !res.longitude) {
         this.map.setView([ 50.217201466867394, 11.065649218205582 ], 4);
         return;
       }
 
-      const marker = L.circleMarker([res.lat!, res.lon!]);
+      const marker = L.circleMarker([res.latitude!, res.longitude!]);
       marker.addTo(this.layerGroup);
 
       this.centerLeafletMapOnMarker(this.map, marker);

@@ -14,17 +14,17 @@
 
   <mat-card class="info-box">
     <mat-card-content>
-      @if (ipInfo && ipInfo().status === 'success') {
+      @if (ipInfo && !ipInfo().error) {
         <section>
           <span>{{ 'ip address' | uppercase }}</span>
-          <span>{{ ipInfo().query }}</span>
+          <span>{{ ipInfo().ip }}</span>
         </section>
         <mat-divider vertical="true"></mat-divider>
         <section>
           <span>{{ 'location' | uppercase }}</span>
           <span>
             {{ ipInfo().city }},
-            {{ ipInfo().region }}
+            {{ ipInfo().region_code }}
           </span>
         </section>
         <mat-divider vertical="true"></mat-divider>
@@ -35,9 +35,13 @@
         <mat-divider vertical="true"></mat-divider>
         <section>
           <span>{{ 'isp' | uppercase }}</span>
-          <span>{{ ipInfo().isp }}</span>
+          <span>{{ ipInfo().org }}</span>
         </section>
       }
+      @else if (ipInfo && ipInfo().error) {
+        {{ ipInfo().reason }}
+      }
+
       @else {
         No Data
       }
